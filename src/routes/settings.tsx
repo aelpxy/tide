@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { AboutSettings } from "../components/settings/about-settings";
 import { AppearanceSettings } from "../components/settings/appearance-settings";
 import { DesktopSettings } from "../components/settings/desktop-settings";
 import { PlaybackSettings } from "../components/settings/playback-settings";
@@ -12,7 +13,7 @@ export const Route = createFileRoute("/settings")({
 
 function Settings() {
   return (
-    <main className="max-w-2xl px-8 pt-4 pb-10">
+    <main className="mx-auto w-full max-w-2xl px-8 pt-4 pb-10">
       <h1 className="mb-8 text-4xl font-bold tracking-tight">Settings</h1>
       <ServerSettings />
       <PlaybackSettings />
@@ -20,6 +21,7 @@ function Settings() {
       <AppearanceSettings />
       <ShortcutSettings />
       <StorageSettings />
+      <AboutSettings />
     </main>
   );
 }
