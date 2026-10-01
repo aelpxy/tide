@@ -30,6 +30,20 @@ export function AboutSettings() {
           Open
         </button>
       </div>
+      <div className="flex items-center justify-between gap-4 py-4">
+        <div className="min-w-0">
+          <p className="text-sm font-medium">License</p>
+          <p className="truncate text-[13px] text-neutral-400">Tide is open source under the MIT License</p>
+        </div>
+        <button
+          type="button"
+          onClick={() => void openUrl(`${REPOSITORY}/blob/main/LICENSE`)}
+          className={button.secondary}
+        >
+          <ExternalLink className="size-4" />
+          View
+        </button>
+      </div>
     </SettingsSection>
   );
 }
