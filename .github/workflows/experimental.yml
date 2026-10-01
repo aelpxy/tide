@@ -1,0 +1,95 @@
+name: Experimental build
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# a newer push replaces a build that's still running
+concurrency:
+  group: experimental
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Prepare release
+    runs-on: ubuntu-latest
+    outputs:
+      id: ${{ steps.create.outputs.id }}
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      # a release tag can't be moved, so replace the previous experimental release with one for this commit
+      - name: Replace experimental release
+        id: create
+        run: |
+          gh release delete experimental --cleanup-tag --yes || true
+          gh release create experimental \
+            --prerelease \
+            --target "${{ github.sha }}" \
+            --title "Tide Experimental" \
+            --notes "Automated build of \`${{ github.sha }}\` from \`main\`. These builds are unsigned: on macOS right-click the app and choose Open the first time; on Windows choose More info → Run anyway."
+          echo "id=$(gh api "repos/$GH_REPO/releases/tags/experimental" --jq .id)" >> "$GITHUB_OUTPUT"
+
+  build:
+    name: Build (${{ matrix.name }})
+    needs: release
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: macOS Apple Silicon
+            platform: macos-latest
+            args: --target aarch64-apple-darwin
+            rust-targets: aarch64-apple-darwin
+          - name: macOS Intel
+            platform: macos-latest
+            args: --target x86_64-apple-darwin
+            rust-targets: x86_64-apple-darwin
+          - name: Linux
+            platform: ubuntu-22.04
+            args: ""
+            rust-targets: ""
+          - name: Windows
+            platform: windows-latest
+            args: ""
+            rust-targets: ""
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Linux dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev patchelf \
+            gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-libav
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: pnpm
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.rust-targets }}
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri -> target
+          key: ${{ matrix.rust-targets || runner.os }}
+
+      - run: pnpm install --frozen-lockfile
+
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          releaseId: ${{ needs.release.outputs.id }}
+          args: ${{ matrix.args }}
