@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tide</title>
+    <script>
+      {
+        const icon = JSON.parse(localStorage.getItem("icon-color") ?? "null");
+        if (icon) {
+          document.documentElement.style.setProperty("--icon-color", icon.color ?? icon.dark);
+          if (icon.on) document.documentElement.style.setProperty("--icon-on-color", icon.on);
+        }
+        const ua = navigator.userAgent;
+        document.documentElement.dataset.platform = ua.includes("Mac") ? "macos" : ua.includes("Windows") ? "windows" : "linux";
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

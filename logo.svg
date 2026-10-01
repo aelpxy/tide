@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="14 10 100 100" fill="none">
+  <defs>
+    <linearGradient id="upper" x1="22" y1="14" x2="104" y2="70" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f0f0f0"/>
+    </linearGradient>
+    <linearGradient id="lower" x1="30" y1="52" x2="70" y2="106" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e6e6e6"/>
+    </linearGradient>
+    <linearGradient id="tail" x1="60" y1="70" x2="102" y2="82" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8f8f8f" stop-opacity="0"/><stop offset="1" stop-color="#8f8f8f"/>
+    </linearGradient>
+    <mask id="shape" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="120">
+      <polygon points="32,26 32,94 96,60" fill="white" stroke="white" stroke-width="26" stroke-linejoin="round"/>
+      <path d="M56 96 C74 86 90 81 101 80 C103 78 104 76 104 74 L86 66 Z" fill="white"/>
+      <path d="M6 57 C24 44 42 44 60 54 S92 75 108 79" stroke="black" stroke-width="8.5" stroke-linecap="round"/>
+    </mask>
+    <clipPath id="above">
+      <path d="M0 0 H120 V80 L108 79 C92 75 78 64 60 54 C42 44 24 44 6 57 L0 57 Z"/>
+    </clipPath>
+  </defs>
+  <g mask="url(#shape)">
+      <rect width="120" height="120" fill="url(#lower)"/>
+      <rect width="120" height="120" fill="url(#tail)"/>
+      <rect width="120" height="120" fill="url(#upper)" clip-path="url(#above)"/>
+    </g>
+</svg>

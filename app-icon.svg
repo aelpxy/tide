@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="none">
+  <defs>
+    <linearGradient id="upper" x1="22" y1="14" x2="104" y2="70" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f0f0f0"/>
+    </linearGradient>
+    <linearGradient id="lower" x1="30" y1="52" x2="70" y2="106" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e6e6e6"/>
+    </linearGradient>
+    <linearGradient id="tail" x1="60" y1="70" x2="102" y2="82" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8f8f8f" stop-opacity="0"/><stop offset="1" stop-color="#8f8f8f"/>
+    </linearGradient>
+    <mask id="shape" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="120">
+      <polygon points="32,26 32,94 96,60" fill="white" stroke="white" stroke-width="26" stroke-linejoin="round"/>
+      <path d="M56 96 C74 86 90 81 101 80 C103 78 104 76 104 74 L86 66 Z" fill="white"/>
+      <path d="M6 57 C24 44 42 44 60 54 S92 75 108 79" stroke="black" stroke-width="8.5" stroke-linecap="round"/>
+    </mask>
+    <clipPath id="above">
+      <path d="M0 0 H120 V80 L108 79 C92 75 78 64 60 54 C42 44 24 44 6 57 L0 57 Z"/>
+    </clipPath>
+    <linearGradient id="tile" x1="0" y1="100" x2="0" y2="924" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#202020"/><stop offset="1" stop-color="#0b0b0b"/>
+    </linearGradient>
+    <linearGradient id="rim" x1="0" y1="92" x2="0" y2="932" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4a4a4a"/><stop offset="0.55" stop-color="#1c1c1c"/><stop offset="1" stop-color="#2e2e2e"/>
+    </linearGradient>
+    <linearGradient id="bottomLight" x1="0" y1="700" x2="0" y2="924" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0"/><stop offset="1" stop-color="#ffffff" stop-opacity="0.04"/>
+    </linearGradient>
+    <filter id="soft" filterUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><feGaussianBlur stdDeviation="34"/></filter>
+    <filter id="halo" filterUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><feGaussianBlur stdDeviation="26"/></filter>
+    <symbol id="silhouette" viewBox="14 10 100 100">
+      <polygon points="32,26 32,94 96,60" fill="#151515" stroke="#151515" stroke-width="26" stroke-linejoin="round"/>
+      <path d="M56 96 C74 86 90 81 101 80 C103 78 104 76 104 74 L86 66 Z" fill="#151515"/>
+    </symbol>
+    <symbol id="mark" viewBox="14 10 100 100"><g mask="url(#shape)">
+      <rect width="120" height="120" fill="url(#lower)"/>
+      <rect width="120" height="120" fill="url(#tail)"/>
+      <rect width="120" height="120" fill="url(#upper)" clip-path="url(#above)"/>
+    </g></symbol>
+  </defs>
+
+  <rect x="96" y="112" width="832" height="820" rx="190" fill="#000000" opacity="0.35" filter="url(#halo)"/>
+  <rect x="88" y="88" width="848" height="848" rx="196" fill="url(#rim)"/>
+  <rect x="89" y="89" width="846" height="846" rx="195" stroke="#ffffff" stroke-opacity="0.16" stroke-width="2"/>
+  <rect x="118" y="118" width="788" height="788" rx="170" fill="url(#tile)"/>
+  <rect x="118" y="118" width="788" height="788" rx="170" fill="url(#bottomLight)"/>
+  <rect x="118" y="118" width="788" height="788" rx="170" stroke="#000000" stroke-opacity="0.5" stroke-width="3"/>
+
+  <g filter="url(#soft)" opacity="0.3"><use href="#mark" x="262" y="262" width="500" height="500"/></g>
+  <use href="#silhouette" x="262" y="262" width="500" height="500"/>
+  <use href="#mark" x="262" y="262" width="500" height="500"/>
+</svg>
