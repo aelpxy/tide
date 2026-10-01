@@ -74,6 +74,6 @@ export function setupNative() {
   useSettings.subscribe((state, previous) => {
     if (state.closeToTray !== previous.closeToTray || state.discord !== previous.discord) syncSettings(state);
   });
-  
+
   syncSettings(useSettings.getState());
 }

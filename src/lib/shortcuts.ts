@@ -43,7 +43,7 @@ function onKeyDown(event: KeyboardEvent) {
 
   const action = mod ? withModifier[event.key] : plain && player.index >= 0 ? withoutModifier[event.key] : undefined;
   if (!action) return;
-  
+
   event.preventDefault();
   action();
 }

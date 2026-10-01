@@ -26,8 +26,7 @@ export async function getLyrics(song: Song): Promise<Lyrics | null> {
         })),
       };
     }
-  } catch {
-  }
+  } catch {}
 
   if (!lyrics && song.artist && song.title) {
     try {
@@ -37,8 +36,7 @@ export async function getLyrics(song: Song): Promise<Lyrics | null> {
       });
       const text = body.lyrics?.value;
       if (text?.trim()) lyrics = { synced: false, lines: text.split(/\r?\n/).map((line) => ({ text: line })) };
-    } catch {
-    }
+    } catch {}
   }
 
   cache.set(song.id, lyrics);
