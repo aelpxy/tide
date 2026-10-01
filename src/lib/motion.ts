@@ -6,6 +6,9 @@ export const fade = { duration: 0.15, ease } as const;
 
 export const slide = { duration: 0.2, ease } as const;
 
+// short and eased: every frame of a width change makes the page beside it re-layout
+export const resize = { duration: 0.25, ease } as const;
+
 // the iOS sheet curve: quick start, clean settle with no long spring tail
 const sheetEase = [0.32, 0.72, 0, 1] as const;
 
